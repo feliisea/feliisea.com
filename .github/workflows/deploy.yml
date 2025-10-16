@@ -7,14 +7,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Upload with SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           server: ${{ secrets.SFTP_HOST }}
+          port: ${{ secrets.SFTP_PORT }}
           username: ${{ secrets.SFTP_USER }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          privateKey: ${{ secrets.SFTP_PRIVATE_KEY }}
-          port: ${{ secrets.SFTP_PORT }}
-          protocol: sftp
-          local-dir: ./
-          server-dir: ${{ secrets.SFTP_DEST }}
-          dangerous-clean-slate: false
+          local_path: ./
+          remote_path: ${{ secrets.SFTP_DEST }}
+          sftp_only: true
